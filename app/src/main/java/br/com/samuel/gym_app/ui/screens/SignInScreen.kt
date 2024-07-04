@@ -7,7 +7,6 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,12 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import br.com.samuel.gym_app.User
+import androidx.navigation.NavController
 import br.com.samuel.gym_app.viewmodel.UserViewModel
 
 @Composable
-fun SignInScreen(viewModel: UserViewModel, onLoginSuccess: () -> Unit){
+fun SignInScreen(viewModel: UserViewModel, navController: NavController){
     Column {
         var username by remember {
             mutableStateOf("")
@@ -32,6 +30,7 @@ fun SignInScreen(viewModel: UserViewModel, onLoginSuccess: () -> Unit){
             mutableStateOf("")
         }
         val user by viewModel.user.observeAsState()
+        var errorMessage by remember { mutableStateOf("") }
         TextField(
             value = username,
             onValueChange = {
@@ -80,9 +79,12 @@ fun SignInScreen(viewModel: UserViewModel, onLoginSuccess: () -> Unit){
             Text(text = "Entrar")
         }
 
-        user?.let { 
-            Text("Bem vindo, ${it.username}")
-            onLoginSuccess()
+        user?.let {
+            if (it.username == username && it.password == password) {
+                navController.navigate("welcome")
+            } else {
+                errorMessage = "Invalid username or password"
+            }
         }
 //        TextButton(
 //            onClick = { onSignUpClick() },
