@@ -1,6 +1,5 @@
 package br.com.samuel.gym_app
 
-import SignIn
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -37,39 +36,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GymappTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                )
-                {
-                    val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "main/{user}") {
-                        composable("main/{user}") { entry ->
-                            entry.arguments?.getString("user")?.let { user ->
-                                MainScreen(user = user)
-                            } ?: LaunchedEffect(null) {
-                                navController.navigate("signIn")
-                            }
-                        }
-                        composable("signIn") {
-                            SignIn(
-                                onSignInClick = {user ->
-                                    navController.navigate("main/${user.username}")
-                                },
-                                onSignUpClick = {
-                                    navController.navigate("signUp")
-                                }
-                            )
-                        }
-                        composable("signUp") {
-                            SignUpScreen(
-                                onSignUpClick = {
-                                    navController.popBackStack()
-                                }
-                            )
-                        }
-                    }
-                }
+                MainScreen(user = "")
             }
         }
     }

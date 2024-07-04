@@ -23,7 +23,7 @@ import br.com.samuel.gym_app.User
 import br.com.samuel.gym_app.viewmodel.UserViewModel
 
 @Composable
-fun SignIn(viewModel: UserViewModel, onLoginSuccess: () -> Unit){
+fun SignInScreen(viewModel: UserViewModel, onLoginSuccess: () -> Unit){
     Column {
         var username by remember {
             mutableStateOf("")
