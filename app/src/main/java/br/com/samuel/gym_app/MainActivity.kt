@@ -29,7 +29,9 @@ import androidx.navigation.compose.rememberNavController
 import br.com.samuel.gym_app.ui.screens.MainScreen
 import br.com.samuel.gym_app.ui.screens.SignUpScreen
 import br.com.samuel.gym_app.ui.theme.GymappTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
