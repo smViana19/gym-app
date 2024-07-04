@@ -19,11 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.com.samuel.gym_app.viewmodel.UserViewModel
 
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    onSignUpClick: () -> Unit
+    viewModel: UserViewModel, onRegisterSuccess: () -> Unit
 ) {
     Column {
         var username by remember {
@@ -32,13 +33,13 @@ fun SignUpScreen(
         var password by remember {
             mutableStateOf("")
         }
-        var confirmPassword by remember {
-            mutableStateOf("")
-        }
+//        var confirmPassword by remember {
+//            mutableStateOf("")
+//        }
         TextField(
             value = username,
-            onValueChange = { newValue ->
-                username = newValue
+            onValueChange = {
+                username = it
             },
             Modifier
                 .padding(8.dp)
@@ -72,27 +73,30 @@ fun SignUpScreen(
                 )
             }
         )
-        TextField(
-            value = confirmPassword,
-            onValueChange = {
-                confirmPassword = it
-            },
-            Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            label = {
-                Text("Confirmar senha")
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = "representação de senha"
-                )
-            }
-        )
+//        TextField(
+//            value = confirmPassword,
+//            onValueChange = {
+//                confirmPassword = it
+//            },
+//            Modifier
+//                .padding(8.dp)
+//                .fillMaxWidth(),
+//            label = {
+//                Text("Confirmar senha")
+//            },
+//            visualTransformation = PasswordVisualTransformation(),
+//            leadingIcon = {
+//                Icon(
+//                    imageVector = Icons.Default.Lock,
+//                    contentDescription = "representação de senha"
+//                )
+//            }
+//        )
         Button(
-            onClick = onSignUpClick,
+            onClick = {
+                viewModel.registerUser(username, password)
+                onRegisterSuccess()
+            },
             Modifier
                 .padding(8.dp)
                 .fillMaxWidth()

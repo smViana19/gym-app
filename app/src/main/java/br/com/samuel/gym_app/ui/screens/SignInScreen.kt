@@ -11,20 +11,19 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.samuel.gym_app.User
+import br.com.samuel.gym_app.viewmodel.UserViewModel
 
 @Composable
-fun SignIn(
-    modifier: Modifier = Modifier,
-    onSignInClick: (User) -> Unit,
-    onSignUpClick: () -> Unit
-    ) {
+fun SignIn(viewModel: UserViewModel, onLoginSuccess: () -> Unit){
     Column {
         var username by remember {
             mutableStateOf("")
@@ -32,10 +31,11 @@ fun SignIn(
         var password by remember {
             mutableStateOf("")
         }
+        val user by viewModel.user.observeAsState()
         TextField(
             value = username,
-            onValueChange = { newValue ->
-                username = newValue
+            onValueChange = {
+                username = it
             },
             Modifier
                 .padding(8.dp)
@@ -71,12 +71,7 @@ fun SignIn(
         )
         Button(
             onClick = {
-                onSignInClick(
-                    User(
-                        username,
-                        password
-                    )
-                )
+                viewModel.loginUser(username, password)
             },
             Modifier
                 .padding(8.dp)
@@ -84,13 +79,18 @@ fun SignIn(
         ) {
             Text(text = "Entrar")
         }
-        TextButton(
-            onClick = { onSignUpClick() },
-            Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
-        ) {
-            Text(text = "Cadastrar")
+
+        user?.let { 
+            Text("Bem vindo, ${it.username}")
+            onLoginSuccess()
         }
+//        TextButton(
+//            onClick = { onSignUpClick() },
+//            Modifier
+//                .padding(8.dp)
+//                .fillMaxWidth()
+//        ) {
+//            Text(text = "Cadastrar")
+//        }
     }
 }
