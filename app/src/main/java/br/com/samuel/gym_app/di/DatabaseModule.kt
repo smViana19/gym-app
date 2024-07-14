@@ -3,8 +3,8 @@ package br.com.samuel.gym_app.di
 import android.content.Context
 import androidx.room.Room
 import androidx.room.Room.databaseBuilder
-import br.com.samuel.gym_app.data.local.AppDataBase
-import br.com.samuel.gym_app.data.local.UserDao
+import br.com.samuel.gym_app.backendservices.database.local.AppDataBase
+import br.com.samuel.gym_app.backendservices.database.local.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

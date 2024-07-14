@@ -1,4 +1,4 @@
-package br.com.samuel.gym_app.data.local
+package br.com.samuel.gym_app.backendservices.database.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
