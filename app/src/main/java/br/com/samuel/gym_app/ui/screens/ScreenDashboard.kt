@@ -1,50 +1,118 @@
 package br.com.samuel.gym_app.ui.screens
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.samuel.gym_app.utils.CpfVisualTransformation
-import br.com.samuel.gym_app.utils.PhoneVisualTransformation
+import androidx.compose.ui.unit.sp
+import br.com.samuel.gym_app.constants.AppConstants.APP_NAME
+import br.com.samuel.gym_app.ui.components.SimpleCard
+import br.com.samuel.gym_app.ui.theme.Colors.OrangeLight
+import br.com.samuel.gym_app.ui.theme.Colors.OrangePrimary
+import br.com.samuel.gym_app.ui.theme.Colors.White
 
 /**
  * Tela que exibe um campo de texto para inserir um CPF.
  */
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenDashboard() {
-    var phone by remember {
-        mutableStateOf("")
-    }
-    TextField(
-        value = phone,
-        onValueChange = { newValue ->
-            // Aceita apenas números e limita o comprimento
-            if (newValue.all { it.isDigit() } && newValue.length < 12) {
-                phone = newValue
+    Scaffold {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+            ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color = OrangeLight)
+                    .statusBarsPadding(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(onClick = { /*TODO MINHA FREQUENCIA*/ }) {
+                    Icon(
+                        imageVector = Icons.Filled.DateRange,
+                        contentDescription = "",
+                        tint = White
+                    )
+                }
+                Text(
+                    text = APP_NAME,
+                    fontSize = 18.sp,
+                    color = White,
+                    fontWeight = FontWeight.Bold
+                )
+
+                IconButton(onClick = { /*TODO DIALOG OPÇÕES DO APP*/ }) {
+                    Icon(
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = "",
+                        tint = White
+                    )
+                }
             }
-        },
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        label = {
-            Text(text = "CPF")
-        },
-        visualTransformation = PhoneVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-    )
+            Spacer(
+                modifier = Modifier
+                    .padding(top = 32.dp)
+            )
+            SimpleCard()
+            Spacer(modifier = Modifier.weight(1f))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.End
+
+            ) {
+                FloatingActionButton(
+                    onClick = { },
+                    containerColor = OrangeLight
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = "Add")
+                }
+            }
+            Spacer(modifier = Modifier.padding(16.dp))
+
+        }
+
+    }
+}
+
+@Preview
+@Composable
+private fun ScreenDashboardPreview() {
+    ScreenDashboard()
 
 }
 
