@@ -1,5 +1,5 @@
 package br.com.samuel.gym_app.constants
 
-object AppConstants {
+object ConstantsApp {
     const val APP_NAME = "FitTrack"
 }
